@@ -4,7 +4,6 @@ import java.net.{URL, URLClassLoader}
 import java.io.PrintWriter
 import scala.io.Source
 import com.typesafe.sbt.osgi.SbtOsgi._
-import com.typesafe.sbt.SbtPgp._
 import org.scalajs.sbtplugin.ScalaJSPlugin
 import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
 
@@ -47,18 +46,6 @@ object ScalatestBuild extends Build {
     }
     catch {
       case e: NoSuchElementException => None
-    }
-
-  def getGPGFilePath: String =
-    envVar("SCALATEST_GPG_FILE") match {
-      case Some(path) => path
-      case None => (Path.userHome / ".gnupg" / "secring.gpg").getAbsolutePath
-    }
-
-  def getGPGPassphase: Option[Array[Char]] =
-    envVar("SCALATEST_GPG_PASSPHASE") match {
-      case Some(passphase) => Some(passphase.toCharArray)
-      case None => None
     }
 
   def getNexusCredentials: Credentials =
@@ -151,9 +138,7 @@ object ScalatestBuild extends Build {
           </developer>
         </developers>
       ),
-    credentials += getNexusCredentials,
-    pgpSecretRing := file(getGPGFilePath),
-    pgpPassphrase := getGPGPassphase
+    credentials += getNexusCredentials
   )
 
   lazy val scalatestDocSettings = Seq(
