@@ -20,6 +20,9 @@ import java.io.BufferedWriter
 
 object GenAnyVals {
 
+  // Hack
+  var p: String = ""
+
   def genMacro(targetDir: File, primitiveTypeName: String, typeName: String, typeBooleanExpr: String): File = {
     val content =
       s"""/*
@@ -81,7 +84,7 @@ object GenAnyVals {
   def genIntAnyVal(targetDir: File, typeName: String, typeDesc: String, typeNote: String, typeBooleanExpr: String, typeValidExample: String, typeInvalidExample: String,
                    typeValidValue: String, typeInvalidValue: String, typeMinValue: String, typeMinValueNumber: String, typeMaxValue: String, typeMaxValueNumber: String,
                    widensToTypes: Seq[String]): List[File] = {
-    val templateSource = scala.io.Source.fromFile("project/templates/IntAnyVal.template")
+    val templateSource = scala.io.Source.fromFile(s"$p/project/templates/IntAnyVal.template")
     val templateText = try templateSource.mkString finally templateSource.close()
     val st = new org.antlr.stringtemplate.StringTemplate(templateText)
 
@@ -128,7 +131,7 @@ object GenAnyVals {
   def genLongAnyVal(targetDir: File, typeName: String, typeDesc: String, typeNote: String, typeBooleanExpr: String, typeValidExample: String, typeInvalidExample: String,
                     typeValidValue: String, typeInvalidValue: String, typeMinValue: String, typeMinValueNumber: String, typeMaxValue: String, typeMaxValueNumber: String,
                     widensToTypes: Seq[String]): List[File] = {
-    val templateSource = scala.io.Source.fromFile("project/templates/LongAnyVal.template")
+    val templateSource = scala.io.Source.fromFile(s"$p/project/templates/LongAnyVal.template")
     val templateText = try templateSource.mkString finally templateSource.close()
     val st = new org.antlr.stringtemplate.StringTemplate(templateText)
 
@@ -175,7 +178,7 @@ object GenAnyVals {
   def genFloatAnyVal(targetDir: File, typeName: String, typeDesc: String, typeNote: String, typeBooleanExpr: String, typeValidExample: String, typeInvalidExample: String,
                      typeValidValue: String, typeInvalidValue: String, typeMinValue: String, typeMinValueNumber: String, typeMaxValue: String, typeMaxValueNumber: String,
                      classExtraMethods: String, objectExtraMethods: String, widensToTypes: Seq[String]): List[File] = {
-    val templateSource = scala.io.Source.fromFile("project/templates/FloatAnyVal.template")
+    val templateSource = scala.io.Source.fromFile(s"$p/project/templates/FloatAnyVal.template")
     val templateText = try templateSource.mkString finally templateSource.close()
     val st = new org.antlr.stringtemplate.StringTemplate(templateText)
 
@@ -224,7 +227,7 @@ object GenAnyVals {
   def genDoubleAnyVal(targetDir: File, typeName: String, typeDesc: String, typeNote: String, typeBooleanExpr: String, typeValidExample: String, typeInvalidExample: String,
                       typeValidValue: String, typeInvalidValue: String, typeMinValue: String, typeMinValueNumber: String, typeMaxValue: String, typeMaxValueNumber: String,
                       classExtraMethods: String, objectExtraMethods: String, widensToTypes: Seq[String]): List[File] = {
-    val templateSource = scala.io.Source.fromFile("project/templates/DoubleAnyVal.template")
+    val templateSource = scala.io.Source.fromFile(s"$p/project/templates/DoubleAnyVal.template")
     val templateText = try templateSource.mkString finally templateSource.close()
     val st = new org.antlr.stringtemplate.StringTemplate(templateText)
 
@@ -273,7 +276,7 @@ object GenAnyVals {
   def genCharAnyVal(targetDir: File, typeName: String, typeDesc: String, typeNote: String, typeBooleanExpr: String, typeValidExample: String, typeInvalidExample: String,
                    typeValidValue: String, typeInvalidValue: String, typeMinValue: String, typeMinValueNumber: String, typeMaxValue: String, typeMaxValueNumber: String,
                    widensToTypes: Seq[String]): List[File] = {
-    val templateSource = scala.io.Source.fromFile("project/templates/CharAnyVal.template")
+    val templateSource = scala.io.Source.fromFile(s"$p/project/templates/CharAnyVal.template")
     val templateText = try templateSource.mkString finally templateSource.close()
     val st = new org.antlr.stringtemplate.StringTemplate(templateText)
 
@@ -973,7 +976,7 @@ object GenAnyVals {
     val divideTests = operatorShouldEqualTests(typeName, primitiveType, validValue, "/")
     val modulusTests = operatorShouldEqualTests(typeName, primitiveType, validValue, "%")
 
-    val templateSource = scala.io.Source.fromFile("project/templates/GeneratedSpec.template")
+    val templateSource = scala.io.Source.fromFile(s"$p/project/templates/GeneratedSpec.template")
     val templateText = try templateSource.mkString finally templateSource.close()
     val st = new org.antlr.stringtemplate.StringTemplate(templateText)
 

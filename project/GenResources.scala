@@ -52,10 +52,10 @@ trait GenResources {
       }
   }
 
-  def genResources(targetDir: File, version: String, scalaVersion: String): Seq[File] = {
+  def genResources(baseDir: File, targetDir: File, version: String, scalaVersion: String): Seq[File] = {
     targetDir.mkdirs()
 
-    val sourcePropertiesFile = propertiesFile
+    val sourcePropertiesFile = baseDir.getAbsolutePath + s"/$propertiesFile"
     val lines = Source.fromFile(sourcePropertiesFile).getLines
 
     val resourcesMethods =
@@ -82,10 +82,10 @@ trait GenResources {
     Vector(resourcesFile)
   }
 
-  def genFailureMessages(targetDir: File, version: String, scalaVersion: String): Seq[File] = {
+  def genFailureMessages(baseDir: File, targetDir: File, version: String, scalaVersion: String): Seq[File] = {
     targetDir.mkdirs()
 
-    val sourcePropertiesFile = propertiesFile
+    val sourcePropertiesFile = baseDir.getAbsolutePath + s"/$propertiesFile"
     val lines = Source.fromFile(sourcePropertiesFile).getLines
 
     val failureMessagesMethods =

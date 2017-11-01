@@ -131,7 +131,7 @@ object GenMatchers {
     outputFile
   }
 
-  def genMainImpl(targetDir: File, version: String, scalaVersion: String, scalaJS: Boolean): Seq[File] = {
+  def genMainImpl(baseDir: File, targetDir: File, version: String, scalaVersion: String, scalaJS: Boolean): Seq[File] = {
     targetDir.mkdirs()
     val matchersDir = new File(targetDir, "matchers")
     matchersDir.mkdirs()
@@ -139,7 +139,7 @@ object GenMatchers {
     junitDir.mkdirs()
 
     Seq(
-      translateFile(targetDir, "MustMatchers.scala", "scalatest/src/main/scala/org/scalatest/Matchers.scala", scalaVersion, scalaJS, translateShouldToMust)
+      translateFile(targetDir, "MustMatchers.scala", s"${baseDir.getAbsolutePath}/scalatest/src/main/scala/org/scalatest/Matchers.scala", scalaVersion, scalaJS, translateShouldToMust)
       /*translateFile(targetDir, "WillMatchers.scala", "scalatest/src/main/scala/org/scalatest/Matchers.scala", scalaVersion, scalaJS, translateShouldToWill)
       translateFile(targetDir, "FactNoExceptionWord.scala", "scalatest/src/main/scala/org/scalatest/words/NoExceptionWord.scala", scalaVersion, scalaJS, translateShouldToWill)
       translateFile(targetDir, "FactResultOfATypeInvocation.scala", "scalatest/src/main/scala/org/scalatest/words/ResultOfATypeInvocation.scala", scalaVersion, scalaJS,
@@ -159,11 +159,11 @@ object GenMatchers {
     )
   }
 
-  def genMain(targetDir: File, version: String, scalaVersion: String): Seq[File] = {
-    genMainImpl(targetDir, version, scalaVersion, false)
+  def genMain(baseDir: File, targetDir: File, version: String, scalaVersion: String): Seq[File] = {
+    genMainImpl(baseDir, targetDir, version, scalaVersion, false)
   }
 
-  def genMainForScalaJS(targetDir: File, version: String, scalaVersion: String): Seq[File] = {
-    genMainImpl(targetDir, version, scalaVersion, true)
+  def genMainForScalaJS(baseDir: File, targetDir: File, version: String, scalaVersion: String): Seq[File] = {
+    genMainImpl(baseDir, targetDir, version, scalaVersion, true)
   }
 }
